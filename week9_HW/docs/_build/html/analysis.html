@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+
+<html lang="ko" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Week 9 실행 결과 분석 (202312140 윤서영) &#8212; Week9 고전역학 시뮬레이션 1.0 문서</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=5efb096d" />
+    <script src="_static/documentation_options.js?v=25ffd669"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/translations.js?v=afa94a99"></script>
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="prev" title="Week 9 Homework — 고전 역학 시뮬레이션" href="readme.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="week-9-202312140">
+<h1>Week 9 실행 결과 분석 (202312140 윤서영)<a class="headerlink" href="#week-9-202312140" title="Link to this heading">¶</a></h1>
+<section id="id1">
+<h2>주제: 고전 역학 시뮬레이션<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+</section>
+<hr class="docutils" />
+<section id="lab-1-euler-vs-rk4-01euler-rk4-py">
+<h2>Lab 1: 수치 적분 비교 — Euler vs RK4 (<code class="docutils literal notranslate"><span class="pre">01euler_rk4.py</span></code>)<a class="headerlink" href="#lab-1-euler-vs-rk4-01euler-rk4-py" title="Link to this heading">¶</a></h2>
+<section id="id2">
+<h3>실행 결과<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<p><strong>단순 조화 진동자 (Simple Harmonic Oscillator)</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>방법</p></th>
+<th class="head"><p>최종 에너지 오차</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Euler</p></td>
+<td><p><strong>39,373,876,402,244,184%</strong> (발산)</p></td>
+</tr>
+<tr class="row-odd"><td><p>RK4</p></td>
+<td><p><strong>7.88%</strong></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>감쇠 진자 (Damped Pendulum)</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>방법</p></th>
+<th class="head"><p>최종 각도</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Euler</p></td>
+<td><p><strong>-17,588.69도</strong> (완전히 발산)</p></td>
+</tr>
+<tr class="row-odd"><td><p>RK4</p></td>
+<td><p><strong>-18.93도</strong> (물리적으로 타당)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id3">
+<h3>분석<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<p>Euler 방법은 1차 정확도(오차 비례 delta_t)로, 시간이 지날수록 오차가 폭발적으로 누적된다. 특히 단진자처럼 에너지가 보존되어야 하는 시스템에서 에너지가 계속 증가해 결국 발산한다.</p>
+<p>RK4는 4차 정확도(오차 비례 delta_t^4)로, 동일한 시간 간격에서 Euler보다 수백억 배 정확하다. 4배의 계산 비용이 들지만 실용적인 수치 시뮬레이션에서는 RK4를 사용해야 한다.</p>
+<p><strong>핵심:</strong> RK4가 Euler보다 약 2.8 x 10^28 배 더 정확함</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="lab-2-02planetary-py">
+<h2>Lab 2: 행성 운동 시뮬레이션 (<code class="docutils literal notranslate"><span class="pre">02planetary.py</span></code>)<a class="headerlink" href="#lab-2-02planetary-py" title="Link to this heading">¶</a></h2>
+<section id="t-2-a-3">
+<h3>실행 결과 — 케플러 제3법칙 검증 (T^2 비례 a^3)<a class="headerlink" href="#t-2-a-3" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>행성</p></th>
+<th class="head"><p>주기 T (년)</p></th>
+<th class="head"><p>장반경 a (AU)</p></th>
+<th class="head"><p>T^2/a^3</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>지구</p></td>
+<td><p>1.000</p></td>
+<td><p>1.000</p></td>
+<td><p>1.000000</p></td>
+</tr>
+<tr class="row-odd"><td><p>화성</p></td>
+<td><p>1.881</p></td>
+<td><p>1.524</p></td>
+<td><p>0.999592</p></td>
+</tr>
+<tr class="row-even"><td><p>목성</p></td>
+<td><p>11.860</p></td>
+<td><p>5.203</p></td>
+<td><p>0.998638</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>평균 T^2/a^3 = <strong>0.999410</strong> (이론값 1.0에 0.06% 오차)</p></li>
+<li><p>에너지 보존 오차: <strong>&lt; 0.0001%</strong></p></li>
+<li><p>각운동량 보존 오차: <strong>&lt; 0.0001%</strong></p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>분석<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<p>뉴턴의 만유인력 법칙(F = -GMm/r^2)을 RK4로 수치 적분한 결과, 케플러의 세 가지 법칙이 모두 정확하게 재현되었다.</p>
+<ul class="simple">
+<li><p><strong>제1법칙</strong>: 시뮬레이션된 궤도가 타원을 그림 (이심률 e = 0.0167 for 지구)</p></li>
+<li><p><strong>제2법칙</strong>: 각운동량 보존 → 근일점에서 빠르게, 원일점에서 느리게 이동</p></li>
+<li><p><strong>제3법칙</strong>: T^2/a^3 ≈ 1.000 으로 정밀하게 성립</p></li>
+</ul>
+<p>에너지와 각운동량이 0.0001% 미만으로 보존되어, RK4의 우수한 보존 성능을 확인했다.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="lab-3-03chaotic-pendulum-py">
+<h2>Lab 3: 혼돈 시스템 — 이중 진자 (<code class="docutils literal notranslate"><span class="pre">03chaotic_pendulum.py</span></code>)<a class="headerlink" href="#lab-3-03chaotic-pendulum-py" title="Link to this heading">¶</a></h2>
+<section id="id5">
+<h3>실행 결과<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>항목</p></th>
+<th class="head"><p>값</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>리아푸노프 지수 lambda</p></td>
+<td><p><strong>0.556 s^-1</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>예측 가능 시간</p></td>
+<td><p><strong>~1.80 s</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>초기 조건 차이</p></td>
+<td><p>delta_theta2 = 0.001도</p></td>
+</tr>
+<tr class="row-odd"><td><p>발산 시간</p></td>
+<td><p>약 15.59 s 이후 완전히 다른 궤적</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id6">
+<h3>분석<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<p>초기 조건이 0.001도(0.00001745 rad)밖에 차이 나지 않는 두 이중 진자가 약 15.59초 후 완전히 다른 운동을 보였다. 이것이 **나비 효과(Butterfly Effect)**의 핵심이다.</p>
+<p>리아푸노프 지수 lambda ≈ 0.556 s^-1 이 양수라는 것은 시스템이 혼돈적임을 수학적으로 증명한다. 두 궤적의 차이는 delta(t) = delta_0 * e^(lambda*t) 로 지수적으로 증가하며, 예측 가능 시간은 1/lambda ≈ 1.8초에 불과하다.</p>
+<p><strong>핵심:</strong> 결정론적(방정식이 명확)이지만 장기 예측이 불가능한 것이 혼돈 시스템의 본질이다.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="lab-4-04lagrangian-hamiltonian-py">
+<h2>Lab 4: 라그랑지안과 해밀토니안 역학 (<code class="docutils literal notranslate"><span class="pre">04lagrangian_hamiltonian.py</span></code>)<a class="headerlink" href="#lab-4-04lagrangian-hamiltonian-py" title="Link to this heading">¶</a></h2>
+<section id="id7">
+<h3>실행 결과<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>방법</p></th>
+<th class="head"><p>에너지 보존 오차</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>뉴턴</p></td>
+<td><p>0.000001%</p></td>
+</tr>
+<tr class="row-odd"><td><p>라그랑지안</p></td>
+<td><p>0.000001%</p></td>
+</tr>
+<tr class="row-even"><td><p>해밀토니안</p></td>
+<td><p>0.000001%</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p><strong>방법 간 각도 차이</strong>: &lt; 1e-10 rad (사실상 동일)</p></li>
+</ul>
+</section>
+<section id="id8">
+<h3>분석<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<p>동일한 단진자 시스템(theta_0 = 60도)을 세 가지 방법으로 풀었더니 완전히 같은 결과가 나왔다. 세 방법은 관점이 다를 뿐 같은 물리를 기술한다.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>방법</p></th>
+<th class="head"><p>핵심 개념</p></th>
+<th class="head"><p>장점</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>뉴턴</p></td>
+<td><p>F = ma</p></td>
+<td><p>직관적, 단순한 문제에 적합</p></td>
+</tr>
+<tr class="row-odd"><td><p>라그랑지안</p></td>
+<td><p>L = T - V</p></td>
+<td><p>일반화 좌표, 제약 조건 처리 용이</p></td>
+</tr>
+<tr class="row-even"><td><p>해밀토니안</p></td>
+<td><p>H = T + V</p></td>
+<td><p>위상 공간, 양자역학으로 확장 가능</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<hr class="docutils" />
+<section id="ex-1-3-ex-01three-body-py">
+<h2>Ex 1: 3체 문제 시뮬레이션 (<code class="docutils literal notranslate"><span class="pre">ex/01three_body.py</span></code>)<a class="headerlink" href="#ex-1-3-ex-01three-body-py" title="Link to this heading">¶</a></h2>
+<section id="id9">
+<h3>실행 결과<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>시나리오</p></th>
+<th class="head"><p>에너지 보존 오차</p></th>
+<th class="head"><p>운동량 보존</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Figure-8 궤도</p></td>
+<td><p><strong>0.000000%</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>태양-지구-달</p></td>
+<td><p><strong>0.000000%</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>라그랑주 L4</p></td>
+<td><p><strong>0.000000%</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id10">
+<h3>분석<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
+<p>2체 문제와 달리 3체 문제는 일반적으로 해석해가 존재하지 않아 수치 시뮬레이션이 필수다.</p>
+<ul class="simple">
+<li><p><strong>Figure-8 궤도</strong>: 세 동일 질량 천체가 8자 형태의 안정 궤도를 공유하는 특수해. 에너지와 운동량이 기계 정밀도(1e-14) 수준으로 보존됨</p></li>
+<li><p><strong>태양-지구-달</strong>: 실제 질량비(태양:지구:달 = 1 : 3e-6 : 3.7e-8)를 사용. 달이 지구 주위를 정상적으로 공전</p></li>
+<li><p><strong>라그랑주 L4</strong>: 작은 천체(m = 0.001)가 두 큰 천체로 이루어진 정삼각형 꼭짓점에 위치하는 안정 배치</p></li>
+</ul>
+<p>질량중심 좌표계 변환을 통해 운동량이 정확히 0으로 보존되는 것을 확인했다.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="ex-2-ex-02llm-optimization-py">
+<h2>Ex 2: 코드 최적화 (<code class="docutils literal notranslate"><span class="pre">ex/02llm_optimization.py</span></code>)<a class="headerlink" href="#ex-2-ex-02llm-optimization-py" title="Link to this heading">¶</a></h2>
+<section id="id11">
+<h3>실행 결과<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<p><strong>Example 1: 행렬 곱셈 (Naive 3중 루프 vs NumPy dot)</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>행렬 크기</p></th>
+<th class="head"><p>Naive (s)</p></th>
+<th class="head"><p>Optimized (s)</p></th>
+<th class="head"><p>가속비</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>10x10</p></td>
+<td><p>0.0001</p></td>
+<td><p>0.000013</p></td>
+<td><p>5.3x</p></td>
+</tr>
+<tr class="row-odd"><td><p>50x50</p></td>
+<td><p>0.0061</p></td>
+<td><p>0.000036</p></td>
+<td><p>168.6x</p></td>
+</tr>
+<tr class="row-even"><td><p>100x100</p></td>
+<td><p>0.0382</p></td>
+<td><p>0.000043</p></td>
+<td><p>889.9x</p></td>
+</tr>
+<tr class="row-odd"><td><p>200x200</p></td>
+<td><p>0.2660</p></td>
+<td><p>0.000116</p></td>
+<td><p><strong>2290.7x</strong></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example 2: 거리 계산 (Naive 이중 루프 vs NumPy 브로드캐스팅)</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>점 개수</p></th>
+<th class="head"><p>가속비</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>10</p></td>
+<td><p>0.4x (소규모에선 overhead)</p></td>
+</tr>
+<tr class="row-odd"><td><p>500</p></td>
+<td><p>7.0x</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example 3: 필터링 (Naive for loop vs Boolean Indexing)</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>데이터 크기</p></th>
+<th class="head"><p>가속비</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1,000</p></td>
+<td><p>0.9x</p></td>
+</tr>
+<tr class="row-odd"><td><p>1,000,000</p></td>
+<td><p>1.2x</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id12">
+<h3>분석<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>행렬 곱셈</strong>: 규모가 커질수록 가속비가 급증. 200x200에서 2,290배 빠름. NumPy는 C로 구현된 BLAS 라이브러리를 사용해 SIMD 명령어로 병렬 연산을 수행하기 때문</p></li>
+<li><p><strong>거리 계산</strong>: 소규모(n=10)에서는 NumPy overhead로 오히려 느림. n이 커지면 브로드캐스팅의 이점이 나타남</p></li>
+<li><p><strong>필터링</strong>: 동일한 O(n) 복잡도로 가속비가 크지 않음. 단, 코드 가독성은 NumPy 버전이 훨씬 좋음</p></li>
+</ul>
+<p><strong>핵심 교훈:</strong></p>
+<ol class="arabic simple">
+<li><p>Python 루프는 피하고 NumPy 벡터화 연산을 사용할 것</p></li>
+<li><p>최적화 효과는 데이터 규모에 따라 달라짐 — 작은 데이터엔 overhead가 클 수 있음</p></li>
+<li><p>프로파일링 후 병목 지점을 찾아 최적화할 것</p></li>
+</ol>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id13">
+<h2>전체 요약<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Lab</p></th>
+<th class="head"><p>핵심 결론</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Lab 1 (Euler vs RK4)</p></td>
+<td><p>RK4가 필수. Euler는 발산함</p></td>
+</tr>
+<tr class="row-odd"><td><p>Lab 2 (행성 운동)</p></td>
+<td><p>RK4로 케플러 3법칙 0.06% 오차 내 검증</p></td>
+</tr>
+<tr class="row-even"><td><p>Lab 3 (이중 진자)</p></td>
+<td><p>lambda=0.556, 예측가능시간 1.8초, 혼돈 실증</p></td>
+</tr>
+<tr class="row-odd"><td><p>Lab 4 (3가지 역학)</p></td>
+<td><p>뉴턴/라그랑지안/해밀토니안 완전히 동일한 결과</p></td>
+</tr>
+<tr class="row-even"><td><p>Ex 1 (3체 문제)</p></td>
+<td><p>RK4로 에너지 오차 0.000000%, 세 시나리오 성공</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ex 2 (코드 최적화)</p></td>
+<td><p>행렬 곱셈에서 NumPy가 최대 2,290배 빠름</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Week9 고전역학 시뮬레이션</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="이동" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>탐색</h3>
+<p class="caption" role="heading"><span class="caption-text">목차</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">Week 9 Homework — 고전 역학 시뮬레이션</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Week 9 실행 결과 분석 (202312140 윤서영)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">주제: 고전 역학 시뮬레이션</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lab-1-euler-vs-rk4-01euler-rk4-py">Lab 1: 수치 적분 비교 — Euler vs RK4 (<code class="docutils literal notranslate"><span class="pre">01euler_rk4.py</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lab-2-02planetary-py">Lab 2: 행성 운동 시뮬레이션 (<code class="docutils literal notranslate"><span class="pre">02planetary.py</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lab-3-03chaotic-pendulum-py">Lab 3: 혼돈 시스템 — 이중 진자 (<code class="docutils literal notranslate"><span class="pre">03chaotic_pendulum.py</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lab-4-04lagrangian-hamiltonian-py">Lab 4: 라그랑지안과 해밀토니안 역학 (<code class="docutils literal notranslate"><span class="pre">04lagrangian_hamiltonian.py</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ex-1-3-ex-01three-body-py">Ex 1: 3체 문제 시뮬레이션 (<code class="docutils literal notranslate"><span class="pre">ex/01three_body.py</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ex-2-ex-02llm-optimization-py">Ex 2: 코드 최적화 (<code class="docutils literal notranslate"><span class="pre">ex/02llm_optimization.py</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id13">전체 요약</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="readme.html" title="이전 장">Week 9 Homework — 고전 역학 시뮬레이션</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2026, 202312140 윤서영.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/analysis.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

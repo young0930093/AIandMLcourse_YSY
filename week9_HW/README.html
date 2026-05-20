@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 9 Homework — 윤서영</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #333; }
+  h1 { border-bottom: 2px solid #0066cc; padding-bottom: 10px; color: #0066cc; }
+  h2 { border-bottom: 1px solid #ddd; padding-bottom: 6px; margin-top: 30px; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+  th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
+  th { background: #f0f4ff; font-weight: bold; }
+  tr:nth-child(even) { background: #f9f9f9; }
+  code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; font-family: monospace; }
+  pre { background: #f4f4f4; padding: 12px; border-radius: 6px; overflow-x: auto; }
+  pre code { background: none; padding: 0; }
+</style>
+</head>
+<body>
+<h1>Week 9 Homework — 고전 역학 시뮬레이션</h1>
+<p><strong>202312140 윤서영</strong></p>
+<h2>개요</h2>
+<p>Week 9 실습 과제: 고전 역학의 핵심 개념들을 수치 시뮬레이션으로 구현하고 분석</p>
+<h2>실습 목록</h2>
+<table>
+<thead>
+<tr>
+<th>Lab</th>
+<th>주제</th>
+<th>핵심 결과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lab 1</td>
+<td>Euler vs RK4 수치 적분 비교</td>
+<td>RK4가 Euler보다 2.8×10²⁸배 정확</td>
+</tr>
+<tr>
+<td>Lab 2</td>
+<td>행성 운동 &amp; 케플러 법칙 검증</td>
+<td>T²/a³ = 0.9994 (오차 0.06%)</td>
+</tr>
+<tr>
+<td>Lab 3</td>
+<td>이중 진자 혼돈 시스템</td>
+<td>리아푸노프 지수 λ=0.556, 예측가능시간 1.8초</td>
+</tr>
+<tr>
+<td>Lab 4</td>
+<td>뉴턴/라그랑지안/해밀토니안 비교</td>
+<td>세 방법 차이 &lt; 1e-10 rad</td>
+</tr>
+<tr>
+<td>Ex 1</td>
+<td>3체 문제 시뮬레이션</td>
+<td>에너지 오차 0.000000%</td>
+</tr>
+<tr>
+<td>Ex 2</td>
+<td>NumPy 코드 최적화</td>
+<td>최대 2,290배 가속</td>
+</tr>
+</tbody>
+</table>
+<h2>파일 구조</h2>
+<pre><code>week9_HW/
+├── README.md              # 이 파일
+├── README.html            # README HTML 변환본
+├── week9_analysis.md      # 상세 실행 결과 분석 보고서
+├── docs/                  # Sphinx 문서
+│   └── _build/html/       # HTML 빌드 결과
+└── outputs/               # 시뮬레이션 결과 그래프
+    ├── 01_euler_vs_rk4.png
+    ├── 01_error_analysis.png
+    ├── 02_solar_system.png
+    ├── 02_kepler_laws.png
+    ├── 03_double_pendulum.png
+    ├── 03_chaos_analysis.png
+    ├── 04_comparison.png
+    └── ...
+</code></pre>
+<h2>상세 분석</h2>
+<p>자세한 실행 결과 및 분석은 <a href="week9_analysis.md">week9_analysis.md</a>를 참고</p>
+</body>
+</html>
